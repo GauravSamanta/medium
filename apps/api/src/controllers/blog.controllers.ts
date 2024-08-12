@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { createPostInput, updatePostInput } from "@bun-tz/medium";
 
 export const createBlog = async (req: Request, res: Response) => {
   return res.json("hello");
