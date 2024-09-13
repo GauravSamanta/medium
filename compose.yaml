@@ -1,0 +1,35 @@
+services:
+  server:
+    build: ./backend
+    depends_on:
+      - mongo
+    environment:
+      NODE_ENV: production
+      DB_URL: mongodb://mongo:27017/mydb
+      JWT_SECRET: pr1WlYoD5KYWvM3XgCrv6
+    ports:
+      - 8000:8000
+    develop:
+   
+      watch:
+       
+        - path: ./backend/package.json
+          action: rebuild
+        - path: ./backend/package-lock.json
+          action: rebuild
+        
+       
+        - path: ./backend
+          target: /app
+          action: sync
+  
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - database:/data/db
+    ports:
+      - "27017:27017"
+
+volumes:
+  database:
